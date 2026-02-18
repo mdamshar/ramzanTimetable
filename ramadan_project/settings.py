@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 if not SECRET_KEY:
     raise RuntimeError("DJANGO_SECRET_KEY environment variable is required")
 
-DEBUG = get_bool_env("DJANGO_DEBUG", False)
+DEBUG = False
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "").split(",")
 
