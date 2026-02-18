@@ -104,7 +104,7 @@ DATABASES = {
         ssl_require=True
     )
 }
-
+DATABASE_URL = "postgresql://ramzandb_user:BA7ZAm5bwioVc6kDlgAN9PUIh9CotUQC@dpg-d6art5a48b3s73bhbbt0-a/ramzandb"
 if not DEBUG and not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is required in production")
 
