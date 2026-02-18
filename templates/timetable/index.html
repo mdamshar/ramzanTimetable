@@ -1,0 +1,269 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}🌙 Ramadan Timetable 1447 AH - Today's Sehri & Iftar Times{% endblock %}
+{% block nav_home %}active{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="geometric-pattern"></div>
+
+    <div class="hero-content">
+        <!-- Bismillah -->
+        <div class="bismillah animate-fade-in">
+            <span class="bismillah-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</span>
+        </div>
+
+        <!-- Welcome Text -->
+        <div class="welcome-badge animate-slide-up">
+            <span>✨ Welcome to Ramadan 1447 AH ✨</span>
+        </div>
+
+        <h1 class="hero-title animate-slide-up delay-1">
+            <span class="title-urdu">سحر و افطار</span>
+            <span class="title-en">Sehri & Iftar Timetable</span>
+        </h1>
+
+        <p class="hero-subtitle animate-slide-up delay-2">
+            رمضان مبارک • रमज़ान मुबारक • Ramadan Mubarak
+        </p>
+
+        <!-- Today's Date Display -->
+        <div class="date-display animate-slide-up delay-3" id="today-date-display">
+            <div class="date-item">
+                <span class="date-label">Today</span>
+                <span class="date-value" id="gregorian-date-hero">Loading...</span>
+            </div>
+            <div class="date-divider">|</div>
+            <div class="date-item">
+                <span class="date-label">Islamic Date</span>
+                <span class="date-value" id="islamic-date-hero">Loading...</span>
+            </div>
+        </div>
+
+        <div class="hero-cta animate-slide-up delay-4">
+            <a href="#today-card" class="btn-primary">View Today's Card</a>
+            <a href="/schedule/" class="btn-secondary">Full Schedule</a>
+        </div>
+    </div>
+
+    <!-- Lantern Decorations -->
+    <div class="lanterns">
+        <div class="lantern lantern-1">🪔</div>
+        <div class="lantern lantern-2">🪔</div>
+        <div class="lantern lantern-3">🪔</div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <div class="scroll-arrow"></div>
+    </div>
+</section>
+
+<!-- Countdown Section -->
+<section class="countdown-section" id="countdown-section">
+    <div class="container">
+        <div class="countdown-card" id="countdown-card">
+            <div class="countdown-header">
+                <span class="countdown-icon">⏳</span>
+                <h2 class="countdown-title">Iftar Countdown</h2>
+            </div>
+            <div class="countdown-timer" id="countdown-timer">
+                <div class="time-unit">
+                    <span class="time-num" id="ct-hours">--</span>
+                    <span class="time-label">Hours</span>
+                </div>
+                <span class="time-colon">:</span>
+                <div class="time-unit">
+                    <span class="time-num" id="ct-minutes">--</span>
+                    <span class="time-label">Minutes</span>
+                </div>
+                <span class="time-colon">:</span>
+                <div class="time-unit">
+                    <span class="time-num" id="ct-seconds">--</span>
+                    <span class="time-label">Seconds</span>
+                </div>
+            </div>
+            <p class="countdown-iftar-time" id="countdown-iftar-label">Iftar Time: <strong
+                    id="countdown-iftar-val">--:--</strong></p>
+        </div>
+    </div>
+</section>
+
+<!-- Today's Timetable Card Section -->
+<section class="card-section" id="today-card">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-badge">Today's Timetable</div>
+            <h2 class="section-title">Daily Prayer Times</h2>
+            <p class="section-subtitle">Download and share today's beautiful timetable card</p>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading-state" id="card-loading">
+            <div class="spinner"></div>
+            <p>Loading today's timetable...</p>
+        </div>
+
+        <!-- No Data State -->
+        <div class="no-data-state hidden" id="card-no-data">
+            <div class="no-data-icon">🌙</div>
+            <h3>No Timetable Available</h3>
+            <p>Please add Ramadan timetable data from the admin panel.</p>
+            <a href="/admin/" class="btn-primary">Go to Admin</a>
+        </div>
+
+        <!-- The Downloadable Card -->
+        <div class="card-wrapper hidden" id="card-wrapper">
+            <div class="timetable-card" id="timetable-card">
+                <!-- Card Background Pattern -->
+                <div class="card-bg-pattern"></div>
+
+                <!-- Card Header -->
+                <div class="card-header-area">
+                    <div class="card-arch">
+                        <div class="arch-inner">
+                            <span class="arch-moon">🌙</span>
+                        </div>
+                    </div>
+                    <div class="card-title-area">
+                        <h2 class="card-title-urdu">سحر و افطار</h2>
+                        <p class="card-year">1447 AH</p>
+                    </div>
+                    <div class="card-ramadan-badge">
+                        <span class="ramadan-badge-text">رمضان مبارک</span>
+                    </div>
+                </div>
+
+                <!-- Day Info -->
+                <div class="card-day-info">
+                    <div class="day-number-badge">
+                        <span class="day-label">Ramadan Day</span>
+                        <span class="day-number" id="card-day-number">--</span>
+                    </div>
+                    <div class="day-names">
+                        <span class="day-name-en" id="card-day-en">--</span>
+                        <span class="day-name-sep">•</span>
+                        <span class="day-name-ur" id="card-day-ur">--</span>
+                        <span class="day-name-sep">•</span>
+                        <span class="day-name-hi" id="card-day-hi">--</span>
+                    </div>
+                    <div class="card-dates">
+                        <span class="card-islamic-date" id="card-islamic-date">--</span>
+                        <span class="card-greg-date" id="card-greg-date">--</span>
+                    </div>
+                </div>
+
+                <!-- Divider -->
+                <div class="card-divider">
+                    <div class="divider-line"></div>
+                    <div class="divider-star">✦</div>
+                    <div class="divider-line"></div>
+                </div>
+
+                <!-- Times Section -->
+                <div class="card-times">
+                    <div class="time-block sehri-block">
+                        <div class="time-block-header">
+                            <span class="time-icon">🌅</span>
+                            <span class="time-block-label-ur">انتہائے سحر</span>
+                            <span class="time-block-label-en">Sehri Ends</span>
+                        </div>
+                        <div class="time-display" id="card-sehri-time">--:-- --</div>
+                    </div>
+
+                    <div class="time-separator">
+                        <div class="sep-line"></div>
+                        <div class="sep-mosque">🕌</div>
+                        <div class="sep-line"></div>
+                    </div>
+
+                    <div class="time-block iftar-block">
+                        <div class="time-block-header">
+                            <span class="time-icon">🌇</span>
+                            <span class="time-block-label-ur">وقت افطار</span>
+                            <span class="time-block-label-en">Iftar Time</span>
+                        </div>
+                        <div class="time-display" id="card-iftar-time">--:-- --</div>
+                    </div>
+                </div>
+
+                <!-- Dua Section -->
+                <div class="card-dua" id="card-dua-section">
+                    <div class="dua-text" id="card-dua-text"></div>
+                    <div class="dua-translation" id="card-dua-translation"></div>
+                </div>
+
+                <!-- Card Footer -->
+                <div class="card-footer-area">
+                    <div class="card-org" id="card-org-name">Ramadan Timetable 1447 AH</div>
+                    <div class="card-location" id="card-location">India</div>
+                    <div class="card-social" id="card-social">
+                        <span class="instagram-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img" focusable="false">
+                                <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm8.5 1.5h-8.5A4.25 4.25 0 0 0 3.5 7.75v8.5a4.25 4.25 0 0 0 4.25 4.25h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5a4.25 4.25 0 0 0-4.25-4.25z"></path>
+                                <path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5A3.5 3.5 0 1 0 12 15.5 3.5 3.5 0 0 0 12 8.5z"></path>
+                                <circle cx="17.5" cy="6.5" r="1.2"></circle>
+                            </svg>
+                        </span>
+                        <span class="instagram-handle">@amsharbinsufyan</span>
+                    </div>
+                </div>
+
+                <!-- Geometric Corner Decorations -->
+                <div class="corner-decor top-left"></div>
+                <div class="corner-decor top-right"></div>
+                <div class="corner-decor bottom-left"></div>
+                <div class="corner-decor bottom-right"></div>
+            </div>
+
+            <!-- Download Button -->
+            <div class="download-area">
+                <button class="btn-download" id="download-btn" onclick="downloadCard()">
+                    <span class="download-icon">⬇️</span>
+                    Download Today's Timetable
+                </button>
+                <button class="btn-share" id="share-btn" onclick="shareCard()">
+                    <span>📤</span> Share
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Stats Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">🌙</div>
+                <div class="stat-number">30</div>
+                <div class="stat-label">Days of Ramadan</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🌅</div>
+                <div class="stat-number" id="stat-sehri">--</div>
+                <div class="stat-label">Today's Sehri</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🌇</div>
+                <div class="stat-number" id="stat-iftar">--</div>
+                <div class="stat-label">Today's Iftar</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📅</div>
+                <div class="stat-number" id="stat-day">--</div>
+                <div class="stat-label">Ramadan Day</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock %}

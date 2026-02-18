@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}📅 Full Ramadan Schedule 1447 AH - Sehri & Iftar Times{% endblock %}
+{% block nav_schedule %}active{% endblock %}
+
+{% block content %}
+
+<!-- Page Header -->
+<section class="page-header">
+    <div class="page-header-overlay"></div>
+    <div class="geometric-pattern"></div>
+    <div class="container">
+        <div class="page-header-content">
+            <div class="page-badge">Complete Schedule</div>
+            <h1 class="page-title">
+                <span class="page-title-ur">رمضان شیڈول</span>
+                <span class="page-title-en">Ramadan Timetable 1447 AH</span>
+            </h1>
+            <p class="page-subtitle">Full month Sehri & Iftar schedule • رمضان مبارک</p>
+        </div>
+    </div>
+</section>
+
+<!-- Search & Filter Bar -->
+<section class="filter-section">
+    <div class="container">
+        <div class="filter-bar">
+            <div class="search-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="search-input" class="search-input"
+                    placeholder="Search by day, date, or day name...">
+            </div>
+            <div class="filter-info" id="filter-info">
+                Showing <span id="showing-count">30</span> of 30 days
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Schedule Table -->
+<section class="schedule-section">
+    <div class="container">
+
+        <!-- Loading -->
+        <div class="loading-state" id="schedule-loading">
+            <div class="spinner"></div>
+            <p>Loading full schedule...</p>
+        </div>
+
+        <!-- Schedule Content -->
+        <div class="hidden" id="schedule-content">
+            <!-- Desktop Table -->
+            <div class="table-wrapper">
+                <table class="schedule-table" id="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Islamic Date</th>
+                            <th>Gregorian Date</th>
+                            <th>Day Name</th>
+                            <th>Sehri Time</th>
+                            <th>Iftar Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="schedule-tbody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Mobile Cards -->
+            <div class="mobile-schedule" id="mobile-schedule">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- No Results -->
+            <div class="no-results hidden" id="no-results">
+                <div class="no-results-icon">🔍</div>
+                <p>No results found for your search.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Day Detail Modal -->
+<div class="modal-overlay hidden" id="day-modal">
+    <div class="modal-content">
+        <button class="modal-close" id="modal-close" onclick="closeModal()">✕</button>
+
+        <div class="modal-card" id="modal-card">
+            <div class="modal-card-bg"></div>
+
+            <div class="modal-header">
+                <div class="modal-arch">
+                    <span class="modal-arch-moon">🌙</span>
+                </div>
+                <div class="modal-title-area">
+                    <h2 class="modal-title-ur">سحر و افطار</h2>
+                    <p class="modal-year">1447 AH</p>
+                </div>
+            </div>
+
+            <div class="modal-day-info">
+                <div class="modal-day-badge">
+                    <span class="modal-day-label">Ramadan Day</span>
+                    <span class="modal-day-num" id="modal-day-num">--</span>
+                </div>
+                <div class="modal-day-names">
+                    <span id="modal-day-en">--</span>
+                    <span>•</span>
+                    <span id="modal-day-ur">--</span>
+                    <span>•</span>
+                    <span id="modal-day-hi">--</span>
+                </div>
+                <div class="modal-dates">
+                    <span id="modal-islamic">--</span>
+                    <span id="modal-greg">--</span>
+                </div>
+            </div>
+
+            <div class="modal-divider">
+                <div class="divider-line"></div>
+                <div class="divider-star">✦</div>
+                <div class="divider-line"></div>
+            </div>
+
+            <div class="modal-times">
+                <div class="modal-time-block">
+                    <div class="modal-time-label-ur">انتہائے سحر</div>
+                    <div class="modal-time-label-en">Sehri Ends</div>
+                    <div class="modal-time-val" id="modal-sehri">--:--</div>
+                </div>
+                <div class="modal-time-sep">🕌</div>
+                <div class="modal-time-block">
+                    <div class="modal-time-label-ur">وقت افطار</div>
+                    <div class="modal-time-label-en">Iftar Time</div>
+                    <div class="modal-time-val" id="modal-iftar">--:--</div>
+                </div>
+            </div>
+
+            <div class="modal-dua" id="modal-dua-section">
+                <div class="modal-dua-text" id="modal-dua-text"></div>
+                <div class="modal-dua-trans" id="modal-dua-trans"></div>
+            </div>
+
+            <div class="modal-footer">
+                <span id="modal-org">Ramadan Timetable 1447 AH</span>
+                <span class="modal-social">
+                    <span class="instagram-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" role="img" focusable="false">
+                            <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm8.5 1.5h-8.5A4.25 4.25 0 0 0 3.5 7.75v8.5a4.25 4.25 0 0 0 4.25 4.25h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5a4.25 4.25 0 0 0-4.25-4.25z"></path>
+                            <path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5A3.5 3.5 0 1 0 12 15.5 3.5 3.5 0 0 0 12 8.5z"></path>
+                            <circle cx="17.5" cy="6.5" r="1.2"></circle>
+                        </svg>
+                    </span>
+                    <span class="instagram-handle">@amsharbinsufyan</span>
+                </span>
+            </div>
+
+            <!-- Corner decorations -->
+            <div class="corner-decor top-left"></div>
+            <div class="corner-decor top-right"></div>
+            <div class="corner-decor bottom-left"></div>
+            <div class="corner-decor bottom-right"></div>
+        </div>
+
+        <div class="modal-actions">
+            <button class="btn-download" onclick="downloadModalCard()">
+                ⬇️ Download This Card
+            </button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/schedule.js' %}"></script>
+{% endblock %}

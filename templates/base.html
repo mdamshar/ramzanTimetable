@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ramadan Timetable 1447 AH - View daily Sehri and Iftar times. Download beautiful timetable cards.">
+    <title>{% block title %}🌙 Ramadan Timetable 1447 AH{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- html2canvas for image download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=20260218">
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- Stars Background -->
+    <div class="stars-bg" id="stars-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-brand">
+                <span class="brand-moon">🌙</span>
+                <span class="brand-text">
+                    <span class="brand-en">Ramadan</span>
+                    <span class="brand-ur">رمضان مبارک</span>
+                </span>
+            </a>
+            <div class="nav-links">
+                <a href="/" class="nav-link {% block nav_home %}{% endblock %}">Home</a>
+                <a href="/schedule/" class="nav-link {% block nav_schedule %}{% endblock %}">Full Schedule</a>
+                <a href="/admin/" class="nav-link nav-admin" target="_blank">Admin</a>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="/" class="mobile-link">🏠 Home</a>
+            <a href="/schedule/" class="mobile-link">📅 Full Schedule</a>
+            <a href="/admin/" class="mobile-link" target="_blank">⚙️ Admin</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-moon">🌙</div>
+            <p class="footer-title">Ramadan Timetable 1447 AH</p>
+            <p class="footer-subtitle">رمضان مبارک • रमज़ान मुबारक • Ramadan Mubarak</p>
+            <p class="footer-copy">© 2026 Ramadan Timetable. Made with ❤️ for the Ummah.</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>
