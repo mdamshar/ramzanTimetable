@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # -------------------------------------------------
 # DEBUG
 # -------------------------------------------------
-DEBUG = os.getenv("DJANGO_DEBUG", "True") == "True"
+DEBUG = False
 
 
 # -------------------------------------------------
@@ -35,13 +35,24 @@ if not SECRET_KEY:
 # -------------------------------------------------
 # ALLOWED HOSTS
 # -------------------------------------------------
-if DEBUG:
-    ALLOWED_HOSTS = ["*"]
-else:
-    hosts = os.getenv("DJANGO_ALLOWED_HOSTS")
-    if not hosts:
-        raise RuntimeError("DJANGO_ALLOWED_HOSTS must be set in production.")
-    ALLOWED_HOSTS = [h.strip() for h in hosts.split(",")]
+ALLOWED_HOSTS = [
+    "ramzantime.onrender.com",
+    ".onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://ramzantime.onrender.com",
+    "https://*.onrender.com",
+]
+
+# Important behind Render proxy:
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+USE_X_FORWARDED_HOST = True
+
+# If using SSL redirect, keep this with proxy header above:
+SECURE_SSL_REDIRECT = True
 
 
 # -------------------------------------------------
