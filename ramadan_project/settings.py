@@ -192,8 +192,3 @@ REST_FRAMEWORK = {
 }
 
 
-from django.contrib.auth import get_user_model
-User = get_user_model()
-
-if not User.objects.filter(username="amshar").exists():
-    User.objects.create_superuser("amshar", "amsharjlk@gmail.com", "jlk@#0541")
